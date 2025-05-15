@@ -3,14 +3,20 @@ Description=Relay Control FastAPI Service
 After=network.target
 
 [Service]
-ExecStart=/home/qcom/code/venv/bin/uvicorn fastapi:app --host 0.0.0.0 --port 8070
+ExecStart=/home/qcom/code/venv/bin/uvicorn relayapi:app --host 0.0.0.0 --port 8070 --workers 4
 WorkingDirectory=/home/qcom/code/
 Restart=always
 Environment="PYTHONUNBUFFERED=1"
-User=qcom
-Group=qcom
+User=root
+Group=root
 StandardOutput=journal
 StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
+
+************************************
+sudo visudo
+qcom ALL=(ALL) NOPASSWD: ALL
+************************************
+sudo apt install build-essential python3-dev
